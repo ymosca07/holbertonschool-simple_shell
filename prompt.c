@@ -25,7 +25,7 @@ int read_input(char *args[])
 
 	if (input[read_size - 1] == '\n')
 		input[read_size - 1] = '\0';
- 
+
 	if (strcmp(input, "exit") == 0)
 	{
 		free(input);

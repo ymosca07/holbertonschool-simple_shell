@@ -58,18 +58,20 @@ int read_input(char *args[])
  */
 void execute_command(char *args[])
 {
-	pid_t pid = fork();
+	pid_t pid;
 	int i = 0;
+	char *full_path = find_command(args[0]);
+
+	if (full_path == NULL)
+	{
+		printf("%s: not found\n", args[0]);
+		exit(1);
+	}
+
+	pid = fork();
 
 	if (pid == 0)
 	{
-		char *full_path = find_command(args[0]);
-
-		if (full_path == NULL)
-		{
-			printf("%s: not found\n", args[0]);
-			exit(1);
-		}
 		if (execve(full_path, args, environ) == -1)
 		{
 			perror("execve");

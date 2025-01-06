@@ -26,7 +26,7 @@ int read_input(char *args[])
 	if (input[read_size - 1] == '\n')
 		input[read_size - 1] = '\0';
 
-	if (strcmp(input, "exit") == 0)
+	if (_strcmp(input, "exit") == 0)
 	{
 		free(input);
 		exit(0);
@@ -37,7 +37,7 @@ int read_input(char *args[])
 
 	while (token != NULL)
 	{
-		args[i] = strdup(token); /* ajoute le token au tableau d'argument */
+		args[i] = _strdup(token); /* ajoute le token au tableau d'argument */
 		token = strtok(NULL, " ");
 		i++;
 	}

@@ -36,7 +36,7 @@ char *absolute_command(const char *command)
 	{
 		if (access(command, R_OK) == 0)
 		{
-			return (strdup(command));
+			return (_strdup(command));
 		}
 	}
 	return (NULL);
@@ -51,7 +51,7 @@ char *find_command(const char *command)
 {
 	char *absolute_path = absolute_command(command);
 	char *path = _getenv("PATH");
-	char *path_copy = strdup(path);
+	char *path_copy = _strdup(path);
 	char *dir = strtok(path_copy, ":");
 	static char full_path[1024];
 	int i, j;

@@ -59,7 +59,7 @@ void execute_command(char *args[])
 	if (full_path == NULL)
 	{
 		printf("%s: not found\n", args[0]);
-		exit(1);
+		return;
 	}
 
 	pid = fork();

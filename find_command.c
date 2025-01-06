@@ -1,9 +1,4 @@
 #include "shell.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
 
 /**
  * _getenv - trouve une ligne précise dans l'environnement
@@ -87,8 +82,8 @@ char *find_command(const char *command)
 		}
 		full_path[i] = '\0';
 
-		if (access(full_path, X_OK) == 0) /* verifie si le fichier est exécutable */
-        {
+		if (access(full_path, X_OK) == 0)/* verifie si le fichier est exécutable */
+		{
 			free(path_copy);
 			return (full_path);
 		}

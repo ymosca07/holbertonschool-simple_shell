@@ -58,7 +58,7 @@ char *find_command(const char *command)
 	char *path_copy = strdup(path);
 	char *dir = strtok(path_copy, ":");
 	static char full_path[1024];
-	int i, fd, j;
+	int i, j;
 
 	if (absolute_path != NULL)
 		return (absolute_path);
@@ -81,11 +81,9 @@ char *find_command(const char *command)
 			j++;
 		}
 		full_path[i] = '\0';
-		fd = open(full_path, O_RDONLY);
 
-		if (fd != -1)
-		{
-			close(fd);
+		if (access(full_path, X_OK) == 0) /* verifie si le fichier est exécutable */
+        {
 			free(path_copy);
 			return (full_path);
 		}
@@ -94,5 +92,3 @@ char *find_command(const char *command)
 	free(path_copy);
 	return (NULL);
 }
-
-

@@ -32,14 +32,10 @@ char *_getenv(const char *name)
  */
 char *absolute_command(const char *command)
 {
-	int fd;
-
 	if (command[0] == '/' || command[0] == '.')
 	{
-		fd = open(command, O_RDONLY);
-		if (fd != -1)
+		if (access(command, R_OK) == 0)
 		{
-			close(fd);
 			return (strdup(command));
 		}
 	}

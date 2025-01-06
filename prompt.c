@@ -94,7 +94,7 @@ void execute_command(char *args[], char *argv[])
 int main(void)
 {
 	char *args[20];
-	char *argv[] = {"./hsh", NULL};
+	char *argv[] = {"./simple_shell", NULL};
 
 	while (1)
 	{

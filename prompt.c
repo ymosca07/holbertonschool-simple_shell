@@ -13,14 +13,14 @@ int read_input(char *args[])
 	ssize_t read_size; /* taille lue */
 	int i;
 
-	printf("$ ");
+	printf("#cisfun$ ");
 	read_size = getline(&input, &input_size, stdin);
 
 	if (read_size == -1) /* vérifier EOF ou erreur */
 	{
 		printf("\n");
 		free(input);
-		exit(1);
+		exit(0);
 	}
 
 	if (input[read_size - 1] == '\n')
@@ -50,7 +50,7 @@ int read_input(char *args[])
  * execute_command - execute la commande avec ses arguments
  * @args: tableau contenant la commande et ses arguments
  */
-void execute_command(char *args[])
+void execute_command(char *args[], char *argv[])
 {
 	pid_t pid;
 	int i = 0;
@@ -58,7 +58,7 @@ void execute_command(char *args[])
 
 	if (full_path == NULL)
 	{
-		printf("%s: not found\n", args[0]);
+		fprintf(stderr, "%s: No such file or directory\n", argv[0]);
 		return;
 	}
 
@@ -94,13 +94,14 @@ void execute_command(char *args[])
 int main(void)
 {
 	char *args[20];
+	char *argv[] = {"./hsh", NULL};
 
 	while (1)
 	{
 		if (read_input(args) != 0)
 			break;
 
-		execute_command(args);
+		execute_command(args, argv);
 	}
 	return (0);
 }

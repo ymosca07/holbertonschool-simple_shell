@@ -18,17 +18,18 @@ int read_input(char *args[])
 
 	if (read_size == -1) /* vérifier EOF ou erreur */
 	{
+		printf("\n");
 		free(input);
 		exit(1);
 	}
 
 	if (input[read_size - 1] == '\n')
 		input[read_size - 1] = '\0';
-
+ 
 	if (strcmp(input, "exit") == 0)
 	{
 		free(input);
-		exit(1);
+		exit(0);
 	}
 
 	token = strtok(input, " ");

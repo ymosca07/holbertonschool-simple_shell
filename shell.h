@@ -7,6 +7,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
+char *_strdup(const char *str);
+int _strcmp(char *s1, char *s2);
 extern char **environ;
 char *_getenv(const char *name);
 char *find_command(const char *command);

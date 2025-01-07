@@ -2,12 +2,14 @@
 
 /**
  * main - affiche le prompt à l'utilisateur en attendant une entrée
+ * @argc: compteur d'arguments
+ * @argv: tableau contenant les arguments
  * Return: 0
  */
-int main(void)
+int main(int argc, char *argv[])
 {
-	char *args[20];
-	char *argv[] = {"./simple_shell", NULL};
+	char *args[1024];
+	(void)argc;
 
 	while (1)
 	{
@@ -50,15 +52,8 @@ int read_input(char *args[])
 		free(input);
 		exit(0);
 	}
-
 	if (input[read_size - 1] == '\n')
 		input[read_size - 1] = '\0';
-
-	if (_strcmp(input, "exit") == 0)
-	{
-		free(input);
-		exit(0);
-	}
 
 	token = strtok(input, " ");
 	i = 0;
@@ -77,6 +72,7 @@ int read_input(char *args[])
 /**
  * execute_command - execute la commande avec ses arguments
  * @args: tableau contenant la commande et ses arguments
+ * @argv: tableau contenant les arguments
  */
 void execute_command(char *args[], char *argv[])
 {
@@ -86,7 +82,9 @@ void execute_command(char *args[], char *argv[])
 
 	if (full_path == NULL)
 	{
-		fprintf(stderr, "%s: No such file or directory\n", argv[0]);
+		if (_strcmp(args[0], "exit") == 0)
+			exit(0);
+		perror(argv[0]);
 		return;
 	}
 
@@ -101,9 +99,7 @@ void execute_command(char *args[], char *argv[])
 		}
 	}
 	else if (pid == -1)
-	{
 		perror("fork");
-	}
 	else
 	{
 		wait(NULL);

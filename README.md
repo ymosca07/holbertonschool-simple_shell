@@ -25,10 +25,12 @@ Le shell permet d'exécuter des commandes saisies par l'utilisateur en interagis
 
 ## 📄 Fichiers
 
-| Colonne 1          | Colonne 2                 | Colonne 3         |
-|---------------------|---------------------------|-------------------|
-| Contenu cellule 1  | Contenu cellule 2         | Contenu cellule 3 |
-| Autre contenu      | Plus de contenu           | Encore du contenu |
+| NOM                 | UTILITÉ          |
+|---------------------|------------------|
+| utils.c            | fonctions externes
+| find_command.c     | interprete l'entrée utilisateur pour chercher la fonction correspondante
+| prompt.c           | gère l'affichage du prompt, les EOFs, l'execution des commandes et les erreurs
+| shell.h            | prototypage des fonctions
 
 ## 📜 Exemple d'utilisation
 
@@ -42,7 +44,12 @@ Pour compiler le programme, utilisez la commande suivante :
 
 ## Flowchart
 
+![image](https://github.com/user-attachments/assets/9e7cd854-c212-42f5-a077-e53eadf5fcc1)
+
+
 ## Man Page
+
+https://github.com/ymosca07/holbertonschool-simple_shell/blob/main/man_1_simple_shell
 
 ## ✒️ Auteurs
 

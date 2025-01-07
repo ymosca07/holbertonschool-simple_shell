@@ -1,6 +1,28 @@
 #include "shell.h"
 
 /**
+ * main - affiche le prompt à l'utilisateur en attendant une entrée
+ * Return: 0
+ */
+int main(void)
+{
+	char *args[20];
+	char *argv[] = {"./simple_shell", NULL};
+
+	while (1)
+	{
+		if (isatty(STDIN_FILENO))
+			printf("#cisfun$ ");
+		if (read_input(args) != 0)
+			break;
+		if (args[0] == NULL)
+			continue;
+		execute_command(args, argv);
+	}
+	return (0);
+}
+
+/**
  * read_input - lit l'entrée de l'utilisateur
  * et sépare la commande des arguments
  * @args: tableau pour stocker les arguments séparés
@@ -13,12 +35,18 @@ int read_input(char *args[])
 	ssize_t read_size; /* taille lue */
 	int i;
 
-	printf("#cisfun$ ");
 	read_size = getline(&input, &input_size, stdin);
 
 	if (read_size == -1) /* vérifier EOF ou erreur */
 	{
-		printf("\n");
+		if (isatty(STDIN_FILENO))
+			printf("\n");
+		free(input);
+		exit(0);
+	}
+
+	if (read_size == 0)
+	{
 		free(input);
 		exit(0);
 	}
@@ -87,21 +115,3 @@ void execute_command(char *args[], char *argv[])
 	}
 }
 
-/**
- * main - affiche le prompt à l'utilisateur en attendant une entrée
- * Return: 0
- */
-int main(void)
-{
-	char *args[20];
-	char *argv[] = {"./simple_shell", NULL};
-
-	while (1)
-	{
-		if (read_input(args) != 0)
-			break;
-
-		execute_command(args, argv);
-	}
-	return (0);
-}

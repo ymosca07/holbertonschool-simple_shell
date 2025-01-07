@@ -98,7 +98,6 @@ void execute_command(char *args[], char *argv[])
 	}
 
 	pid = fork();
-
 	if (pid == 0)
 	{
 		if (execve(full_path, args, environ) == -1)

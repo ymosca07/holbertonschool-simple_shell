@@ -4,9 +4,10 @@
  * main - affiche le prompt à l'utilisateur en attendant une entrée
  * Return: 0
  */
-int main(void)
+int main(int argc, char *argv[])
 {
 	char *args[1024];
+	(void)argc;
 
 	while (1)
 	{
@@ -14,7 +15,7 @@ int main(void)
 			printf("#cisfun$ ");
 		if (read_input(args) != 0)
 			break;
-		execute_command(args);
+		execute_command(args, argv);
 	}
 	return (0);
 }
@@ -68,7 +69,7 @@ int read_input(char *args[])
  * execute_command - execute la commande avec ses arguments
  * @args: tableau contenant la commande et ses arguments
  */
-void execute_command(char *args[])
+void execute_command(char *args[], char *argv[])
 {
 	pid_t pid;
 	int i = 0;
@@ -80,7 +81,7 @@ void execute_command(char *args[])
 	full_path = find_command(args[0]);
 	if (full_path == NULL)
 	{
-		fprintf(stderr, "command not found: %s\n", args[0]);
+		perror(argv[0]);
 		return;
 	}
 	if (args[0] == NULL)

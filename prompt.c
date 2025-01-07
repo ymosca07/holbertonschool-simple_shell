@@ -83,12 +83,7 @@ void execute_command(char *args[], char *argv[])
 	if (full_path == NULL)
 	{
 		if (_strcmp(args[0], "exit") == 0)
-		{
-			if (isatty(STDIN_FILENO))
-				exit(0);
-			fprintf(stderr, "%s: No such file or directory\n", argv[0]);
-			exit(127);
-		}
+			exit(0);
 		else
 		{
 			perror(argv[0]);

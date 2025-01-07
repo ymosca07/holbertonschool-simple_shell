@@ -2,6 +2,8 @@
 
 /**
  * main - affiche le prompt à l'utilisateur en attendant une entrée
+ * @argc: compteur d'arguments
+ * @argv: tableau contenant les arguments
  * Return: 0
  */
 int main(int argc, char *argv[])
@@ -68,6 +70,7 @@ int read_input(char *args[])
 /**
  * execute_command - execute la commande avec ses arguments
  * @args: tableau contenant la commande et ses arguments
+ * @argv: tableau contenant les arguments d'execution du fichier
  */
 void execute_command(char *args[], char *argv[])
 {
@@ -77,15 +80,14 @@ void execute_command(char *args[], char *argv[])
 
 	if (_strcmp(args[0], "exit") == 0)
 		exit(0);
-
+	if (args[0] == NULL)
+		return;
 	full_path = find_command(args[0]);
 	if (full_path == NULL)
 	{
 		perror(argv[0]);
 		return;
 	}
-	if (args[0] == NULL)
-		return;
 
 	pid = fork();
 	if (pid == 0)

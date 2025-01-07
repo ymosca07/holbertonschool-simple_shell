@@ -6,6 +6,7 @@
  * @argv: tableau contenant les arguments
  * Return: 0
  */
+
 int main(int argc, char *argv[])
 {
 	char *args[1024];
@@ -17,6 +18,8 @@ int main(int argc, char *argv[])
 			printf("#cisfun$ ");
 		if (read_input(args) != 0)
 			break;
+		if (args[0] == NULL)
+			continue;
 		execute_command(args, argv);
 	}
 	return (0);
@@ -70,26 +73,24 @@ int read_input(char *args[])
 /**
  * execute_command - execute la commande avec ses arguments
  * @args: tableau contenant la commande et ses arguments
- * @argv: tableau contenant les arguments d'execution du fichier
+ * @argv: tableau contenant les arguments
  */
 void execute_command(char *args[], char *argv[])
 {
 	pid_t pid;
 	int i = 0;
-	char *full_path;
+	char *full_path = find_command(args[0]);
 
-	if (_strcmp(args[0], "exit") == 0)
-		exit(0);
-	if (args[0] == NULL)
-		return;
-	full_path = find_command(args[0]);
 	if (full_path == NULL)
 	{
+		if (_strcmp(args[0], "exit") == 0)
+			exit(0);
 		perror(argv[0]);
 		return;
 	}
 
 	pid = fork();
+
 	if (pid == 0)
 	{
 		if (execve(full_path, args, environ) == -1)

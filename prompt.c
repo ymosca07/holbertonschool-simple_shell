@@ -78,17 +78,16 @@ void execute_command(char *args[], char *argv[])
 {
 	pid_t pid;
 	int i = 0;
-	char *full_path = find_command(args[0]);
+	char *full_path;
 
+	if (_strcmp(args[0], "exit") == 0)
+		exit(0);
+
+	full_path = find_command(args[0]);
 	if (full_path == NULL)
 	{
-		if (_strcmp(args[0], "exit") == 0)
-			exit(0);
-		else
-		{
 			perror(argv[0]);
 			return;
-		}
 	}
 
 	pid = fork();

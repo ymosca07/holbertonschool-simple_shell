@@ -1,1 +1,120 @@
-Test
+.TH SIMPLE_SHELL 1 "Janvier 2025" "Manuel de Simple Shell" "Commandes Utilisateur"
+
+.SH NOM
+simple_shell \- Holberton School
+
+.SH SYNOPSIS
+.B simple_shell
+
+.SH DESCRIPTION
+.B simple_shell
+est une implémentation simple d'un shell UNIX, développée par Yannis et Julien.
+
+.SH FONCTIONNALITÉS
+.B simple_shell
+supporte les fonctionnalités suivantes :
+
+.TP
+\fBMode interactif\fR
+Affiche une invite (\$) et attend l'entrée de l'utilisateur. Après l'exécution d'une commande, il réaffiche l'invite.
+
+.TP
+\fBMode non interactif\fR
+Exécute des commandes fournies via redirection d'entrée ou pipeline.
+
+.TP
+\fBExécution des commandes\fR
+Exécute les commandes disponibles dans le PATH du système à l'aide de l'appel système \fBexecve\fR.
+
+.TP
+\fBVariables d'environnement\fR
+Affiche l'environnement actuel lorsque la commande interne \fBenvironment\fR (\fBenv\fR) est exécutée.
+
+.TP
+\fBCommande de sortie intégrée\fR
+Quitte le shell lorsque la commande \fBexit\fR est entrée.
+
+.SH UTILISATION
+.B simple_shell
+peut être utilisé en deux modes :
+
+.SS Mode interactif
+Exécutez le shell en lançant la commande suivante :
+.nf
+$ ./simple_shell
+.fi
+Entrez des commandes à l'invite (\$), et le shell les exécutera.
+
+Exemple :
+.nf
+$ /bin/ls
+file1 file2 file3
+$ exit
+.fi
+
+.SS Mode non interactif
+Fournissez des commandes via l'entrée standard :
+.nf
+$ echo "/bin/ls" | ./simple_shell
+file1 file2 file3
+$ cat commands.txt | ./simple_shell
+file1 file2 file3
+file4 file5
+.fi
+
+.SH COMMANDES INTEGREES
+.TP
+\fBexit\fR
+Quitte le shell.
+
+.TP
+\fBenv\fR
+Affiche les variables d'environnement actuelles.
+
+.SH EXIGENCES
+.B simple_shell
+a été développé avec les contraintes suivantes :
+
+.TP
+Développé sous Ubuntu 20.04 LTS avec GCC en utilisant les options \fB-Wall -Werror -Wextra -pedantic -std=gnu89\fR.
+
+.TP
+Respecte le style de codage Betty.
+
+.TP
+Limite à cinq fonctions par fichier et veille à l'absence de fuites de mémoire.
+
+.TP
+Inclut des fichiers d'en-tête protégés contre les inclusions multiples.
+
+.TP
+Utilise les appels système uniquement lorsque cela est nécessaire.
+
+.SH APPELS SYSTÈME
+.B simple_shell
+s'appuie sur les appels système et fonctions suivants :
+.TP
+\fBaccess\fR \(\fBman 2 access\fR\)
+\fBexecve\fR \(\fBman 2 execve\fR\)
+\fBfork\fR \(\fBman 2 fork\fR\)
+\fBwait\fR \(\fBman 2 wait\fR\)
+\fBwrite\fR \(\fBman 2 write\fR\)
+Et d'autres fonctions standard de la bibliothèque telles que \fBmalloc\fR, \fBfree\fR, et \fBstrtok\fR.
+
+.SH EXEMPLES
+Exécuter \fBsimple_shell\fR en mode interactif :
+.nf
+$ ./simple_shell
+($) /bin/ls
+file1 file2
+($) exit
+.fi
+
+Exécuter \fBsimple_shell\fR en mode non interactif :
+.nf
+$ echo "/bin/ls" | ./simple_shell
+file1 file2
+.fi
+
+.SH AUTEURS
+Yannis et Julien

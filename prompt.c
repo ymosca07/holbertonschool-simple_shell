@@ -20,7 +20,6 @@ int main(int argc, char *argv[])
 		if (args[0] == NULL)
 			continue;
 		execute_command(args, argv);
-		free(args);
 	}
 	return (0);
 }

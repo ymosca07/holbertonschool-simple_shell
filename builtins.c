@@ -12,7 +12,7 @@ int gestion_builtin(char **args)
 	if (args == NULL || args[0] == NULL)
 		return (0);
 
-	if (_strcmp(args[0], "exit") == 0)
+	if (_strcmp(args[0], "exit") == 0 && args[1] == NULL)
 	{
 		while (args[i])
 		{

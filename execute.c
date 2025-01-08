@@ -13,10 +13,10 @@ void execute_command(char *args[], char *argv[])
 
 	if (full_path == NULL)
 	{
-		perror(argv[0]);
+		perror(args[0]);
 		while (args[i] != NULL)
 			free(args[i++]);
-		return;
+		exit(127);
 	}
 	pid = fork();
 	if (pid == -1)

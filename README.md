@@ -28,9 +28,13 @@ Le shell permet d'exécuter des commandes saisies par l'utilisateur en interagis
 | NOM                 | UTILITÉ          |
 |---------------------|------------------|
 | utils.c            | fonctions externes
-| find_command.c     | interprete l'entrée utilisateur pour chercher la fonction correspondante
-| prompt.c           | gère l'affichage du prompt, les EOFs, l'execution des commandes et les erreurs
+| execute.c          | execute la commande
+| input.c            | input de l'utilisateur
 | shell.h            | prototypage des fonctions
+| main.c             | affichage prompt et appel des fonctions
+| builtins.c         | fonctions intégrées (env & exit)
+| path.c             | cherche chemin de la fonction
+
 
 ## 📜 Exemple d'utilisation
 

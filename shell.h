@@ -1,5 +1,6 @@
 #ifndef SHELL_H
 #define SHELL_H
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -7,14 +8,26 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-char *_strdup(const char *str);
-int _strcmp(char *s1, char *s2);
-extern char **environ;
-char *_getenv(const char *name);
-char *find_command(const char *command);
+/* Prototypes des fonctions */
+/* Fonctions principales */
 int read_input(char *args[]);
 void execute_command(char *args[], char *argv[]);
-int main(int argc, char *argv[]);
+
+/* Fonctions de recherche de commandes */
+char *find_command(const char *command);
 char *absolute_command(const char *command);
+void build_path(char *dir, const char *command, char *full_path);
+
+/* Fonctions intégrés au shell */
+int gestion_builtin(char **args);
+void print_env(void);
+
+/* Fonctions utilitaires */
+char *_strdup(const char *str);
+int _strcmp(char *s1, char *s2);
+char *_getenv(const char *name);
+
+/* Variable d'environnement */
+extern char **environ;
 
 #endif

@@ -34,6 +34,10 @@ int read_input(char *args[])
 		input[read_size - 1] = '\0';
 
 	token = strtok(input, " ");
+
+	if (token == NULL)
+		return(NULL);
+
 	i = 0;
 
 	while (token != NULL)

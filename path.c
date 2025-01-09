@@ -63,6 +63,10 @@ char *find_command(const char *command)
 		return (NULL);
 
 	dir = strtok(path_copy, ":");
+
+	if (dir == NULL)
+		return (NULL);
+
 	while (dir != NULL)
 	{
 		build_path(dir, command, full_path);

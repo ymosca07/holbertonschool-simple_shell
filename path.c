@@ -47,10 +47,12 @@ void build_path(char *dir, const char *command, char *full_path)
  */
 char *find_command(const char *command)
 {
-	char *absolute_path, *path, *path_copy, *dir;
+	char *absolute_path = absolute_command(command);
 	static char full_path[1024];
+	char *path;
+	char *path_copy;
+	char *dir;
 
-	absolute_path = absolute_command(command);
 	if (absolute_path != NULL)
 		return (absolute_path);
 
@@ -63,14 +65,13 @@ char *find_command(const char *command)
 		return (NULL);
 
 	dir = strtok(path_copy, ":");
-
 	while (dir != NULL)
 	{
 		build_path(dir, command, full_path);
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
-			return (full_path);
+			return (_strdup(full_path));
 		}
 		dir = strtok(NULL, ":");
 	}

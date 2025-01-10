@@ -70,7 +70,7 @@ char *find_command(const char *command)
 		if (access(full_path, X_OK) == 0)
 		{
 			free(path_copy);
-			return (full_path);
+			return (_strdup(full_path));
 		}
 		dir = strtok(NULL, ":");
 	}

@@ -45,6 +45,5 @@ void execute_command(char *args[], char *argv[])
 		while (args[i] != NULL)
 			free(args[i++]);
 	}
-	if (absolute_command(args[0]) != NULL)
-		free(full_path);
+	free(full_path);
 }

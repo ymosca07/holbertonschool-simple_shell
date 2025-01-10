@@ -5,6 +5,7 @@
  * @args: Tableau contenant la commande et ses arguments
  * @argv: Tableau contenant les arguments d'execution
  */
+
 void execute_command(char *args[], char *argv[])
 {
 	pid_t pid;
@@ -14,35 +15,42 @@ void execute_command(char *args[], char *argv[])
 	if (full_path == NULL)
 	{
 		perror(args[0]);
-		while (args[i] != NULL)
-			free(args[i++]);
+		for (i = 0; args[i] != NULL; i++)
+			free(args[i]);
+		free(args);
 		exit(127);
 	}
+
 	pid = fork();
 	if (pid == -1)
 	{
 		perror(argv[0]);
 		free(full_path);
-		while (args[i] != NULL)
-			free(args[i++]);
+		for (i = 0; args[i] != NULL; i++)
+			free(args[i]);
+		free(args);
 		exit(1);
 	}
-	if (pid == 0) /* Processus enfant */
+
+	if (pid == 0)
 	{
 		if (execve(full_path, args, environ) == -1)
 		{
 			perror(argv[0]);
 			free(full_path);
-			while (args[i])
-				free(args[i++]);
+			for (i = 0; args[i] != NULL; i++)
+				free(args[i]);
+			free(args);
 			exit(1);
 		}
 	}
-	else /* Processus parent */
+	else
 	{
 		wait(NULL);
-		while (args[i] != NULL)
-			free(args[i++]);
 	}
+
+	free(full_path);
+	for (i = 0; args[i] != NULL; i++)
+		free(args[i]);
 	free(args);
 }

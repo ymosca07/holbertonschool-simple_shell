@@ -15,42 +15,35 @@ void execute_command(char *args[], char *argv[])
 	if (full_path == NULL)
 	{
 		perror(args[0]);
-		for (i = 0; args[i] != NULL; i++)
-			free(args[i]);
-		free(args);
+		while (args[i] != NULL)
+			free(args[i++]);
 		exit(127);
 	}
-
 	pid = fork();
 	if (pid == -1)
 	{
 		perror(argv[0]);
 		free(full_path);
-		for (i = 0; args[i] != NULL; i++)
-			free(args[i]);
-		free(args);
+		while (args[i] != NULL)
+			free(args[i++]);
 		exit(1);
 	}
-
-	if (pid == 0)
+	if (pid == 0) /* Processus enfant */
 	{
 		if (execve(full_path, args, environ) == -1)
 		{
 			perror(argv[0]);
 			free(full_path);
-			for (i = 0; args[i] != NULL; i++)
-				free(args[i]);
-			free(args);
+			while (args[i])
+				free(args[i++]);
 			exit(1);
 		}
 	}
-	else
+	else /* Processus parent */
 	{
 		wait(NULL);
+		while (args[i] != NULL)
+			free(args[i++]);
 	}
-
-	free(full_path);
-	for (i = 0; args[i] != NULL; i++)
-		free(args[i]);
 	free(args);
 }

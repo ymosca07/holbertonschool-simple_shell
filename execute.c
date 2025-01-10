@@ -44,4 +44,5 @@ void execute_command(char *args[], char *argv[])
 		while (args[i] != NULL)
 			free(args[i++]);
 	}
+	free(args);
 }
